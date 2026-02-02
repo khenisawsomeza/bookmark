@@ -44,13 +44,13 @@ addBookmarkBtn.addEventListener("click", function () {
 
 // Search functionality
 if (searchInput) {
-  searchInput.addEventListener('input', function () {
+  searchInput.addEventListener("input", function () {
     const q = searchInput.value.trim();
     renderBookmarks(q); // rerender bookmarks with filter
   });
 }
 
-// add bookmark to display
+// add bookmark to display (Mark as Important, Edit, Archive, Tag button)
 function addBookmark(name, url, important = false, tag = "") {
   //create elements
   const li = document.createElement("li");
@@ -63,10 +63,10 @@ function addBookmark(name, url, important = false, tag = "") {
 
   //check and add tag if exists
   if (tag) {
-    const tagSpan = document.createElement('span');
-    tagSpan.classList.add('bookmark-tag');
+    const tagSpan = document.createElement("span");
+    tagSpan.classList.add("bookmark-tag");
     tagSpan.textContent = tag;
-    link.appendChild(document.createTextNode(' '));
+    link.appendChild(document.createTextNode(" "));
     link.appendChild(tagSpan);
   }
 
@@ -92,6 +92,45 @@ function addBookmark(name, url, important = false, tag = "") {
     renderBookmarks();
   });
 
+  //Edit Button
+  const editButton = document.createElement("button");
+  editButton.textContent = "Edit";
+
+  editButton.addEventListener("click", function () {
+    //Asking for new name
+    const newName = prompt("Edit bookmark name:", name);
+    //Return if no name or url
+    if (newName === null || newName.trim() === "") {
+      alert("Please enter a name.");
+      return;
+    }
+    const newUrl = prompt("Edit bookmark URL:", url);
+
+    //Checking for valid URL
+    if (
+      newUrl === null ||
+      (!newUrl.startsWith("http://") && !newUrl.startsWith("https://"))
+    ) {
+      alert("Invalid URL");
+      return;
+    }
+
+    const newTag = prompt("Edit tag (leave blank to remove):", tag || "");
+
+    // Update in localStorage
+    const bookmarks = getBookmarksFromStorage();
+    const index = bookmarks.findIndex((b) => b.name === name && b.url === url);
+
+    if (index !== -1) {
+      bookmarks[index].name = newName.trim();
+      bookmarks[index].url = newUrl.trim();
+      bookmarks[index].tag = newTag.trim();
+      localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    }
+
+    renderBookmarks();
+  });
+
   //Archive button
   const archiveButton = document.createElement("button");
   archiveButton.textContent = "Archive";
@@ -100,19 +139,19 @@ function addBookmark(name, url, important = false, tag = "") {
     if (li.parentElement === bookmarkList) bookmarkList.removeChild(li); // check if parent is bookmarkList before removing
     // remove from bookmarks and add to archive including tag
     const bookmarks = getBookmarksFromStorage();
-    const idx = bookmarks.findIndex(b => b.name === name && b.url === url);
-    const currentTag = idx !== -1 ? (bookmarks[idx].tag || "") : tag; // get current tag from bookmarks or fallback to provided tag
+    const idx = bookmarks.findIndex((b) => b.name === name && b.url === url);
+    const currentTag = idx !== -1 ? bookmarks[idx].tag || "" : tag; // get current tag from bookmarks or fallback to provided tag
     removeBookmarksFromStorage(name, url);
     saveArchive(name, url, currentTag);
     addArchiveItem(name, url, currentTag);
   });
 
   // Tag / Edit Tag button
-  const tagButton = document.createElement('button');
-  tagButton.textContent = tag ? 'Edit Tag' : 'Add Tag'; // change text based on existing tag
+  const tagButton = document.createElement("button");
+  tagButton.textContent = tag ? "Edit Tag" : "Add Tag"; // change text based on existing tag
   // functionality for clicking tag button
-  tagButton.addEventListener('click', function () {
-    const newTag = prompt('Enter tag (leave blank to remove):', tag || '');
+  tagButton.addEventListener("click", function () {
+    const newTag = prompt("Enter tag (leave blank to remove):", tag || "");
     if (newTag === null) return; // cancelled
     // Update tag in local storage
     const bookmarks = getBookmarksFromStorage();
@@ -121,7 +160,7 @@ function addBookmark(name, url, important = false, tag = "") {
     );
     if (bookmarkIndex !== -1) {
       bookmarks[bookmarkIndex].tag = newTag.trim();
-      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
     }
     renderBookmarks();
   });
@@ -130,6 +169,7 @@ function addBookmark(name, url, important = false, tag = "") {
   const controls = document.createElement("div");
   controls.classList.add("bookmark-controls");
   controls.appendChild(importantButton);
+  controls.appendChild(editButton);
   controls.appendChild(archiveButton);
   controls.appendChild(tagButton);
 
@@ -167,10 +207,14 @@ function renderBookmarks(filter = "") {
 
   // checks first if filter is empty then filters by name or tag
   bookmarks
-    .filter(b => !q || (b.name && b.name.toLowerCase().includes(q)) || (b.tag && b.tag.toLowerCase().includes(q)))
-    .forEach(b => addBookmark(b.name, b.url, b.important, b.tag || ""));
-  }
-
+    .filter(
+      (b) =>
+        !q ||
+        (b.name && b.name.toLowerCase().includes(q)) ||
+        (b.tag && b.tag.toLowerCase().includes(q)),
+    )
+    .forEach((b) => addBookmark(b.name, b.url, b.important, b.tag || ""));
+}
 
 // remove bookmark from local storage
 function removeBookmarksFromStorage(name, url) {
@@ -204,7 +248,6 @@ function loadArchive() {
 
 // add archived bookmark to display
 function addArchiveItem(name, url, tag = "") {
-
   //create elements
   const li = document.createElement("li");
   const link = document.createElement("a");
@@ -216,10 +259,10 @@ function addArchiveItem(name, url, tag = "") {
 
   //check and add tag if exists
   if (tag) {
-    const tagSpan = document.createElement('span');
-    tagSpan.classList.add('bookmark-tag');
+    const tagSpan = document.createElement("span");
+    tagSpan.classList.add("bookmark-tag");
     tagSpan.textContent = tag;
-    link.appendChild(document.createTextNode(' '));
+    link.appendChild(document.createTextNode(" "));
     link.appendChild(tagSpan);
   }
 
