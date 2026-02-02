@@ -8,8 +8,8 @@
 }
 
 body{
-    background-color: white;
-    color: #333;
+    background-color: #F9F7F6; /* soft cream */
+    color: #1E293B; /* dark slate for text */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,10 +17,10 @@ body{
 }
 
 .container{
-    background-color: rgb(192, 62, 22);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF; /* clean white card */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     width: 90%;
     max-width: 400px;   
     text-align: center;
@@ -28,7 +28,7 @@ body{
 
 h1{
     margin-bottom: 20px;
-    color:aliceblue;
+    color: #1E293B;
     letter-spacing: 2px;
 }
 
@@ -36,39 +36,46 @@ h1{
     display: flex;
     margin-bottom: 20px;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 input{
-    padding: 10px;
-    border-radius: 6px;
-    border: 5px solid#780000;
-} 
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #CBD5E1; /* soft border */
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+input:focus{
+    border-color: #6366F1; /* subtle purple focus */
+}
 
 button{
-    padding: 10px;
+    padding: 12px;
     border: none;
-    border-radius: 4px;
-    background-color: #ffffff;
-    color: rgb(221, 73, 15);
+    border-radius: 8px;
+    background-color: #4F46E5; /* darker purple */
+    color: #FFFFFF;
     cursor: pointer;
+    font-weight: 500;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button:hover {  
-    background-color: rgb(168, 87, 87);
-    color: red;
+    background-color: #6366F1; /* lighter purple hover */
 }
+
 #bookmark-list{
     list-style: none;
     padding: 0;
 }
 
 #bookmark-list li {
-    background-color: #fdf0d5;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid transparent;
+    background-color: #F1F5F9; /* very light blue/gray */
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
@@ -76,22 +83,24 @@ button:hover {
 }
 
 #bookmark-list a {
-    color: #780000;
+    color: #1E293B;
     text-decoration: none;
+    font-weight: 500;
 }
 
 #bookmark-list button {
-    background-color: #c1121f;
+    background-color: #7C3AED; /* darker lavender for better contrast */
     border: 1px solid transparent;
     padding: 5px 10px;
-    border-radius: 4px;
-    transition: color 0.3s ease, background-color 0.3s, border-color 0.3 ease;
+    border-radius: 6px;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    color: #FFFFFF;
 }
 
 #bookmark-list button:hover {
-    background-color: white;
-    color: #780000;
-    border-color: #c1121f;
+    background-color: #FFFFFF;
+    color: #7C3AED; /* matching darker purple */
+    border-color: #7C3AED;
 }
 
 /*archives section*/
@@ -106,7 +115,7 @@ button:hover {
 }
 
 .archive-container h2{
-    color: aliceblue;
+    color: #4F46E5; /* darker purple heading */
     margin-bottom: 8px;
 }
 
@@ -116,10 +125,10 @@ button:hover {
 }
 
 #archive-list li {
-    background-color: #eef6ff;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid transparent;
+    background-color: #E0F2FE; /* light blue */
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #BAE6FD;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
@@ -127,26 +136,48 @@ button:hover {
 }
 
 #archive-list a {
-    color: #0b5fff;
+    color: #0284C7; /* vibrant blue */
     text-decoration: none;
     margin-right: 8px;
 }
 
 #archive-list button {
-    background-color: #2b7a0b;
+    background-color: #16A34A; /* soft green */
     border: 1px solid transparent;
     padding: 5px 8px;
-    border-radius: 4px;
+    border-radius: 6px;
     margin-left: 6px;
     color: white;
 }
 
 #clear-archive{
-    background-color: #ffffff;
-    color: rgb(221, 73, 15);
-    border-radius: 4px;
+    background-color: #F87171; /* soft red/pink */
+    color: #FFFFFF;
+    border-radius: 6px;
     padding: 6px 8px;
     margin-bottom: 8px;
     border: none;
     cursor: pointer;
+}
+
+/*Bookmark controls*/
+.bookmark-controls{
+    display: flex;
+    gap: 6px;
+    margin-left: 10px;
+}
+
+.bookmark-controls button{
+    padding: 2px 6px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    background-color: #FBBF24; /* soft yellow */
+    color: #1E293B;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bookmark-controls button:hover{
+    background-color: #FCD34D; /* lighter yellow */
 }
