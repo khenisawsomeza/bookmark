@@ -100,8 +100,10 @@ function addBookmark(name, url, important = false, tag = "") {
     //Asking for new name
     const newName = prompt("Edit bookmark name:", name);
     //Return if no name or url
-    if (newName === null || newName.trim() === "") return;
-
+    if (newName === null || newName.trim() === "") {
+      alert("Please enter a name.");
+      return;
+    }
     const newUrl = prompt("Edit bookmark URL:", url);
 
     //Checking for valid URL
