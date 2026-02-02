@@ -386,15 +386,15 @@ function applySorting(bookmarks) {
       break;
     case "date-newest":
       bookmarks.sort((a, b) => {
-        const dateA = new Date(a.addedAt || 0);
-        const dateB = new Date(b.addedAt || 0);
+        const dateA = new Date(a.addedAt || 0).getTime();
+        const dateB = new Date(b.addedAt || 0).getTime();
         return dateB - dateA;
       });
       break;
     case "date-oldest":
       bookmarks.sort((a, b) => {
-        const dateA = new Date(a.addedAt || 0);
-        const dateB = new Date(b.addedAt || 0);
+        const dateA = new Date(a.addedAt || 0).getTime();
+        const dateB = new Date(b.addedAt || 0).getTime();
         return dateA - dateB;
       });
       break;
