@@ -72,11 +72,14 @@ function addBookmark(name, url, important = false, tag = "") {
 
   //Important button
   const importantButton = document.createElement("button");
+  importantButton.classList.add("important-button");
+  if (important) importantButton.classList.add("is-important");
   importantButton.textContent = important ? "★" : "☆";
   //toggle important status
   importantButton.addEventListener("click", function () {
     important = !important;
     importantButton.textContent = important ? "★" : "☆";
+    importantButton.classList.toggle("is-important", important);
 
     // Update important status in local storage
     const bookmarks = getBookmarksFromStorage();

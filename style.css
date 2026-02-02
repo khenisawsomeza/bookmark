@@ -124,6 +124,21 @@ button:hover {
     color: #FFFFFF;
 }
 
+#bookmark-list .important-button {
+    background-color: #FFFFFF;
+    color: #7C3AED;
+}
+
+#bookmark-list .important-button:hover {
+    background-color: #7C3AED;
+    color: #FFFFFF;
+}
+
+#bookmark-list .important-button.is-important {
+    background-color: #7C3AED;
+    color: #FFFFFF;
+}
+
 #bookmark-list button:hover {
     background-color: #FFFFFF;
     color: #7C3AED; 
