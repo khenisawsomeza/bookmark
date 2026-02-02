@@ -129,7 +129,7 @@ button:hover {
     color: #7C3AED;
 }
 
-#bookmark-list .important-button:hover {
+#bookmark-list .important-button:hover{
     background-color: #7C3AED;
     color: #FFFFFF;
 }
