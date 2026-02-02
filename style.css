@@ -8,21 +8,23 @@
 }
 
 body{
-    background-color: #F9F7F6; /* soft cream */
-    color: #1E293B; /* dark slate for text */
+    background-color: #F9F7F6; 
+    color: #1E293B; 
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    /* allow content to flow and page to scroll when archive grows */
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 0;
 }
 
 .container{
-    background-color: #FFFFFF; /* clean white card */
+    background-color: #FFFFFF; 
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     width: 90%;
-    max-width: 400px;   
+    max-width: 800px;   
     text-align: center;
 }
 
@@ -39,23 +41,34 @@ h1{
     gap: 12px;
 }
 
+.search-container{
+    margin-bottom: 12px;
+}
+
+#search-input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #E6E9F2;
+}
+
 input{
     padding: 12px;
     border-radius: 8px;
-    border: 2px solid #CBD5E1; /* soft border */
+    border: 2px solid #CBD5E1; 
     outline: none;
     transition: border 0.3s ease;
 }
 
 input:focus{
-    border-color: #6366F1; /* subtle purple focus */
+    border-color: #6366F1; /* purple focus */
 }
 
 button{
     padding: 12px;
     border: none;
     border-radius: 8px;
-    background-color: #4F46E5; /* darker purple */
+    background-color: #4F46E5; 
     color: #FFFFFF;
     cursor: pointer;
     font-weight: 500;
@@ -63,16 +76,21 @@ button{
 }
 
 button:hover {  
-    background-color: #6366F1; /* lighter purple hover */
+    background-color: #6366F1; /* lighter purple on hover */
 }
 
 #bookmark-list{
     list-style: none;
-    padding: 0;
+    padding: 8px;
+    margin: 0;
+    /* fixed-size scrollable list when many bookmarks exist */
+    max-height: 280px;
+    overflow-y: auto;
+    display: block;
 }
 
 #bookmark-list li {
-    background-color: #F1F5F9; /* very light blue/gray */
+    background-color: #F1F5F9; 
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #E2E8F0;
@@ -88,8 +106,17 @@ button:hover {
     font-weight: 500;
 }
 
+.bookmark-tag{
+    margin-left: 8px;
+    padding: 2px 8px;
+    background-color: #EEF2FF;
+    color: #4338CA;
+    border-radius: 999px;
+    font-size: 0.8rem;
+}
+
 #bookmark-list button {
-    background-color: #7C3AED; /* darker lavender for better contrast */
+    background-color: #7C3AED; 
     border: 1px solid transparent;
     padding: 5px 10px;
     border-radius: 6px;
@@ -99,7 +126,7 @@ button:hover {
 
 #bookmark-list button:hover {
     background-color: #FFFFFF;
-    color: #7C3AED; /* matching darker purple */
+    color: #7C3AED; 
     border-color: #7C3AED;
 }
 
@@ -108,6 +135,7 @@ button:hover {
     margin-top: 16px;
     text-align: left;
     display: none;
+
 }
 
 .archive-container.visible{
@@ -115,17 +143,20 @@ button:hover {
 }
 
 .archive-container h2{
-    color: #4F46E5; /* darker purple heading */
+    color: #4F46E5; 
     margin-bottom: 8px;
 }
 
 #archive-list{
     list-style: none;
     padding: 0;
+    max-height: 280px;
+    overflow-y: auto;
+    display: block;
 }
 
 #archive-list li {
-    background-color: #E0F2FE; /* light blue */
+    background-color: #E0F2FE;
     padding: 12px;
     border-radius: 6px;
     border: 1px solid #BAE6FD;
@@ -136,13 +167,13 @@ button:hover {
 }
 
 #archive-list a {
-    color: #0284C7; /* vibrant blue */
+    color: #0284C7; 
     text-decoration: none;
     margin-right: 8px;
 }
 
 #archive-list button {
-    background-color: #16A34A; /* soft green */
+    background-color: #16A34A; 
     border: 1px solid transparent;
     padding: 5px 8px;
     border-radius: 6px;
@@ -151,7 +182,7 @@ button:hover {
 }
 
 #clear-archive{
-    background-color: #F87171; /* soft red/pink */
+    background-color: #F87171; 
     color: #FFFFFF;
     border-radius: 6px;
     padding: 6px 8px;
@@ -165,19 +196,4 @@ button:hover {
     display: flex;
     gap: 6px;
     margin-left: 10px;
-}
-
-.bookmark-controls button{
-    padding: 2px 6px;
-    font-size: 0.9rem;
-    border-radius: 6px;
-    background-color: #FBBF24; /* soft yellow */
-    color: #1E293B;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.bookmark-controls button:hover{
-    background-color: #FCD34D; /* lighter yellow */
 }
