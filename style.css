@@ -52,6 +52,20 @@ h1{
     border: 2px solid #E6E9F2;
 }
 
+.sort-container{
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sort-container button{
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    background-color: #6366F1;
+}
+
 input{
     padding: 12px;
     border-radius: 8px;

@@ -9,10 +9,20 @@ const archiveContainer = document.querySelector(".archive-container");
 const toggleArchiveBtn = document.getElementById("toggle-archive");
 const searchInput = document.getElementById("search-input");
 
+// Sort buttons
+const sortAlphabeticalAscBtn = document.getElementById("sort-alphabetical-asc");
+const sortAlphabeticalDescBtn = document.getElementById("sort-alphabetical-desc");
+const sortDateNewestBtn = document.getElementById("sort-date-newest");
+const sortDateOldestBtn = document.getElementById("sort-date-oldest");
+
+// Current sort mode
+let currentSortMode = "important"; // default sort by important
+
 // Initial load
 document.addEventListener("DOMContentLoaded", () => {
   renderBookmarks();
   loadArchive();
+  attachSortListeners();
 });
 
 //function when add bookmark button is clicked
@@ -193,7 +203,7 @@ function getBookmarksFromStorage() {
 // save bookmark to local storage
 function saveBookmark(name, url, important = false, tag = "") {
   const bookmarks = getBookmarksFromStorage();
-  bookmarks.push({ name, url, important, tag });
+  bookmarks.push({ name, url, important, tag, addedAt: new Date().toISOString() });
   localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
 }
 
@@ -202,8 +212,8 @@ function renderBookmarks(filter = "") {
   bookmarkList.innerHTML = ""; //clear existing list
   const bookmarks = getBookmarksFromStorage(); //get bookmarks from storage
 
-  // sort bookmarks: important ones first
-  bookmarks.sort((a, b) => b.important - a.important);
+  // apply sorting based on current sort mode
+  applySorting(bookmarks);
 
   //filter and display bookmarks
   const q = filter ? filter.toLowerCase() : ""; // normalize filter
@@ -332,4 +342,64 @@ if (toggleArchiveBtn && archiveContainer) {
       ? "Hide Archive"
       : "Show Archive";
   });
+}
+
+// attach sort button listeners
+function attachSortListeners() {
+  if (sortAlphabeticalAscBtn) {
+    sortAlphabeticalAscBtn.addEventListener("click", function () {
+      currentSortMode = "alphabetical-asc";
+      renderBookmarks(searchInput.value);
+    });
+  }
+
+  if (sortAlphabeticalDescBtn) {
+    sortAlphabeticalDescBtn.addEventListener("click", function () {
+      currentSortMode = "alphabetical-desc";
+      renderBookmarks(searchInput.value);
+    });
+  }
+
+  if (sortDateNewestBtn) {
+    sortDateNewestBtn.addEventListener("click", function () {
+      currentSortMode = "date-newest";
+      renderBookmarks(searchInput.value);
+    });
+  }
+
+  if (sortDateOldestBtn) {
+    sortDateOldestBtn.addEventListener("click", function () {
+      currentSortMode = "date-oldest";
+      renderBookmarks(searchInput.value);
+    });
+  }
+}
+
+// apply sorting based on current sort mode
+function applySorting(bookmarks) {
+  switch (currentSortMode) {
+    case "alphabetical-asc":
+      bookmarks.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case "alphabetical-desc":
+      bookmarks.sort((a, b) => b.name.localeCompare(a.name));
+      break;
+    case "date-newest":
+      bookmarks.sort((a, b) => {
+        const dateA = new Date(a.addedAt || 0);
+        const dateB = new Date(b.addedAt || 0);
+        return dateB - dateA;
+      });
+      break;
+    case "date-oldest":
+      bookmarks.sort((a, b) => {
+        const dateA = new Date(a.addedAt || 0);
+        const dateB = new Date(b.addedAt || 0);
+        return dateA - dateB;
+      });
+      break;
+    default:
+      // default: important bookmarks first
+      bookmarks.sort((a, b) => b.important - a.important);
+  }
 }
